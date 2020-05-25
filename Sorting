@@ -1,0 +1,36 @@
+Sorting Algorithm
+	
+Bubble Sort :-
+	Bubble sort works by iterating first element to last element, comparing two adjacent elements and swapping them if they are not in correct order.
+	Each iteration places next larger value to its correct place.
+	
+Quick Sort :-
+	It a sorting algorithm, which is using divide and conquer algorithm.
+	Lets say array is arr[]
+	Choose a pivot, it is generally mid element of the list.
+	Initialise two index variable , left=0 and right=arr.length-1
+	Increment left variable until you get element higher than pivot.
+	Decrement right variable until you get element lesser than pivot
+	swap arr[left] and arr[right]
+	Recursively sort sublists(sublist with less than pivot, sublist greater than pivot) using above algorithm.
+	In the end , you will get sorted array.
+	
+Merge Sort :-
+	Merge sort Algorithm
+    It works on below principle:
+    Divide list into sublist of about half size in each iteration until each sublist has only one element.
+    Merge each sublist repeatedly to create sorted list. It will run until we have only 1 sorted list.
+    This will be the sorted list.
+	
+Selection :-
+	Selection sort is an in place comparison sorting algorithm.
+	It is very simple to implement but it does not go well with large number of inputs.
+	Selection sort algorithm
+	Find the minimum element in the list.
+	Swap minimum element with current element.
+	Repeat the whole process until array is fully sorted.
+	
+Heap Sort :-	
+	A heap is a tree with some special properties,
+	so value of node should be greater than or equal to(less than or equal to in case of min heap)
+	children of the node and tree should be complete binary tree.

@@ -1,0 +1,36 @@
+circuit breakers
+pattern to prevent "cascading failure"
+request filter
+
+Cascading Failure :- Cascading failure is a where the failure of one part of an interconnected system results in the failure of more parts, and eventually the whole system. 
+		example:- 	request ------> Order Service ----HTTP----> Payment Service
+					For each request a thread will be assigned from servlet thread pool
+					
+		Immediate Failure --> Connection refused by Payment service as it is down
+		Timeout Failures ---> Payment service took long time to send a response
+		
+		If we have a system wheer lot of services are talking with each other and then this can cause problem to many services and bring thr applivation down
+
+
+
+Circuit Breakers :- Circuit Breakers pattern ensures stable performance in your microservices by monitoring for failures and providing an alternate service or error message.
+		example:- 	request ------> Order Service ----HTTP----> Payment Service
+					For each request a thread will be assigned from servlet thread pool
+					
+		Immediate Failure --> Connection refused by Payment service as it is down
+		Timeout Failures ---> Payment service took long time to send a response
+		
+		If we have a system wheer lot of services are talking with each other and then this can cause problem to many services and bring thr applivation down
+
+Request Interceptor :- To avoid this use request interceptor to pass all services through this through 
+
+	Different States of the Circuit Breaker
+		The circuit breaker has three distinct states: Closed, Open, and Half-Open:
+		1. Closed – When everything is normal, the circuit breaker remains in the closed state and all calls pass through to the services. When the number of failures exceeds a 	 predetermined threshold the breaker trips, and it goes into the Open state.
+		2. Open – The  circuit breaker returns an error for calls without executing the function.
+		3. Half-Open – After a timeout period, the circuit switches to a half-open state to test if the underlying problem still exists. If a single call fails in this half-open state, the breaker is once again tripped. If it succeeds, the circuit breaker resets back to the normal, closed state. 
+			
+			
+	Two projects that implements Circuit Breakers
+	1. Hystrix
+	2. Resillience project

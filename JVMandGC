@@ -1,0 +1,87 @@
+JVM
+	The bigger picture or overview is 
+				applications class file -->	Class loader <-- .class files from API
+												|
+												|	bytecode
+												|
+											Execution Engine
+												|
+												| Native method calls to host OS
+	
+	Further 3 main components of JVM architecture
+		1. Class loader subsystem
+		2. Runtime Data Areas
+		3  Execution engine
+		
+		Class Loader Subsystem :- 3 main phases
+			Loader												Link												Initialize
+				- Loading .class byte code into memory		- has 3 diffrent phases										This is the phase where the static	
+				  It can read .class file from 3				+ verify :- this loads the bytecode loaded				initializers  run, static block, 
+				  diffrent types of class loader				  by classloader and checks and checks					values assigned to static variables 
+					+ Bootstrap class loader					  is it compatible to jvm class specs					are set in this phase
+					  (internal classes from rt.jar)			+ prepare :- memory is allocated to static
+					+ Extension class loader					  and class level variables of a class file
+					  (loads additional jars from                 only for class variables not instance variables
+						jre/lib/ext folder)						+ resolve :- symbloic refrences are resolved
+					+ Application class loader					  refrences to other classes or values in 
+					   (classpath, -cp command)					  constant pool
+						
+				  
+									
+		Runtime Data Areas
+			Method Areas :- stores meta data corresponding to class, 
+							stores per-class structures such as the run-time constant pool, 
+							field and method data, and the code for methods and constructors
+							to tune -XX:MaxPermSize
+				Now it is Metaspace in Java8 and moved to space on native OS and that is metaspace
+				Point is to use system memory
+			Heap		:- Anything to do with objects is created in heap, new instantiated objects
+						   arrays, instance variables
+						   to tune use paramaters -Xms, -Xmx
+			PC Register	:- Program register holds the next instruction executed per thread
+			Java Stacks	:- Contains the stack frame corresponding to current method execution per thread
+						   contains data related to currently executing method ,paramaters value, return value
+						   local variables value and operand stacks
+			Native method stack :- 
+			
+			
+		Execution engine :-
+				Interpreter :- The interpreter read, interpret and execute bytecode instructions one by one.
+				JIT compiler :- Start executing the code in interpreted mode and JIT compiler compile the entire bytecode to native code.
+				Hotspot profiler
+				GC	:-
+
+------------------------------------------------------------------------------------------------------------				
+				
+Garbage Collection	:- GC ia a process of looking at heap memory, identifying which objects are in use and which are not, and deleting the unused objects.
+					    Garbage collection is carried out by daemon thread
+						Anything to do with objects is created in heap, new instantiated objects arrays, instance variables
+						So GC happens on heap
+						
+		- Steps in GC :-
+			Mark			:- Starts from the root node of application, walks the object graph, marks object tht are reachable as live
+			Delete/Sweep	:- Delete unreachable objects	
+			Compacting		:- Compact the memory by moving around the object and making allocation continious than fragmented
+			
+		- Generational collectors on Heap
+					Young Generation				Old Generation
+					1. Eden Space
+					2.1 Survivor space
+					2.2 Surviour space
+					
+				The newly created objects are placed in Eden space of heap. Once the eden space is full then
+					- Minor GC runs :- live objects are moved to surviour and unreachable objects are sweeped and cleaned up 
+									 and the remaining live objects are moved to surviout space
+					- Garbace collection threshold :- when an object survives maximum threshold count it is moved to old generation  
+													-XXMaxTenuringThreshold
+					- Major GC :- Runs across heap when both old generation is almost full. Cleans both generation memory.
+		
+		- Types of Garbage collectors
+			1. Serial GC :- basic gc of java, runs in single thread and used for basic applications
+			2. Concurrent GC :- this thread runs along with the application
+			3. Parallec GC :- Uses parallel cores of CPU and runs on multiple threads to quickly perform GC when heap si about to become full
+			4. G1 garbage collectors
+		
+	
+		
+		
